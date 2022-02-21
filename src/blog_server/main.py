@@ -1,14 +1,30 @@
-from grpc_out.blog_pb2_grpc import BlogServiceServicer
-from grpc_out import blog_pb2
+from concurrent.futures import ThreadPoolExecutor
+import grpc
+import grpc_out.blog_pb2_grpc as blog_grpc
+from blog_server.service import Blog
+from os import environ
 
 
-class Blog(BlogServiceServicer):
+def main():
 
-    def getPosts(self, request, context):
-        return blog_pb2.GetPostsResponse
+    port = environ.get("PORT")
+    if port is None:
 
-    def getPostCount(self, request, context):
-        ...
+        port = 7707
 
-    def createPost(self, request, context):
-        ...
+    server = grpc.server(ThreadPoolExecutor(max_workers=4))
+
+    blog_grpc.add_BlogServiceServicer_to_server(Blog(), server)
+
+    server.add_insecure_port(f'[::]:{port}')
+
+    server.start()
+
+    print(f'Server started on port {port}')
+
+    server.wait_for_termination()
+
+
+if __name__ == '__main__':
+
+    main()
