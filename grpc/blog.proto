@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+message Post {
+    string title = 1;
+    string content = 2;
+    string uri = 3;
+    uint64 createdAt = 4;
+}
+
+message Error {
+    uint32 code = 1;
+    string msg = 2;
+}
+
+message CreatePostRequest {
+    string title = 1;
+    string content = 2;
+    string uri = 3;
+}
+
+message CreatePostResponse {
+    Error error = 1;
+}
+
+message GetPostsRequest {
+    uint32 index = 1;
+    uint32 count = 2;
+}
+
+message GetPostsResponse {
+    repeated Post posts = 1;
+    Error error = 2;
+}
+
+message GetPostCountRequest {}
+
+message GetPostCountResponse {
+    Error error = 1;
+    uint32 count = 2;
+}
+
+service BlogService {
+    rpc createPost (CreatePostRequest) returns (CreatePostResponse);
+
+    rpc getPostCount (GetPostCountRequest) returns (GetPostCountResponse);
+    rpc getPosts (GetPostsRequest) returns (GetPostsResponse);
+}
