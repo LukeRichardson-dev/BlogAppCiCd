@@ -43,4 +43,4 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
           api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
           app_name: ${{ secrets.HEROKU_APP_NAME }} # you aplication name
-          dockerfile_path: docker/blog/main.yml # set the path to the folder wher the Dokerfile is located
+          dockerfile_path: docker/blog/Dockerfile # set the path to the folder wher the Dokerfile is located
