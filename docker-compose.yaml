@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  blog:
+    build: 
+      dockerfile: docker\blog\Dockerfile
+      context: .
