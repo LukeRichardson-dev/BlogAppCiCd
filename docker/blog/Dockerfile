@@ -31,7 +31,5 @@ RUN poetry build && /venv/bin/pip install dist/*.whl
 
 FROM base as final
 
-ENV PORT=7717
-
 COPY --from=builder /venv /venv
 CMD . /venv/bin/activate && run-blog
